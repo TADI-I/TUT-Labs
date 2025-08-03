@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "813848094026",
+    "project_id": "tut-labs-a7755",
+    "storage_bucket": "tut-labs-a7755.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:813848094026:android:96149f4b961cd0f6b94db3",
+        "android_client_info": {
+          "package_name": "com.tadiwanashe.tutictlabs"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARD5pa-ReroXmg74aqi9TUnqGyTR7QqjQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

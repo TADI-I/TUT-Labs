@@ -1,0 +1,22 @@
+package com.tadiwanashe.tutictlabs.Models
+
+import java.util.*
+
+// Equivalent to Swift's `var` for mutable properties
+data class LabStatus(
+    var id: UUID = UUID.randomUUID(),
+    var labName: String = "",
+    var isOpen: Boolean = false,
+    var note: String = "",
+    var updatedBy: String = "",
+    var updatedById: String = "",
+    var timestamp: Date = Date()
+)
+
+data class LabShift(
+    var id: UUID = UUID.randomUUID(),
+    var tutorId: String = "",
+    var day: String = "",
+    var time: String = "",
+    var labName: String = ""
+)

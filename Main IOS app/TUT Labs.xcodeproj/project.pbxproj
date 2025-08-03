@@ -36,22 +36,9 @@
 		281C3A372E3E28C0004B1ED0 /* TUT LabsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TUT LabsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
-/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
-		281C3A802E3E487A004B1ED0 /* Exceptions for "TUT Labs" folder in "TUT Labs" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Views/Untitled.swift,
-			);
-			target = 281C3A1F2E3E28BD004B1ED0 /* TUT Labs */;
-		};
-/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
-
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		281C3A222E3E28BD004B1ED0 /* TUT Labs */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				281C3A802E3E487A004B1ED0 /* Exceptions for "TUT Labs" folder in "TUT Labs" target */,
-			);
 			path = "TUT Labs";
 			sourceTree = "<group>";
 		};
