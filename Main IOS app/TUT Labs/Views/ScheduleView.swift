@@ -26,6 +26,7 @@ struct ScheduleView: View {
                     }
                 }
             }
+            
         }
         .navigationTitle("My Schedule")
         .onAppear {

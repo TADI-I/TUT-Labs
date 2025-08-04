@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 // Public access button
-                Button("📘 View Lab Info Without Login") {
+                Button("🖥️ View Lab Info Without Login") {
                     showStudentView = true
                 }
                 .padding()
@@ -35,10 +35,17 @@ struct ContentView: View {
                 } else {
                     LoginView(authViewModel: authViewModel)
                 }
+                
+                Text("Made by Tadiwanashe Songore For TUT FoICT")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+                    .padding(.top, 30)
+                    .padding(.bottom, 10)
             }
             
         }
     }
+    
 }
 
 

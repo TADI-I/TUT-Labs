@@ -51,6 +51,8 @@ struct StudentLabStatusView: View {
                         .padding(.vertical, 4)
                     }
                 }
+                
+                
             }
             .navigationTitle(" Lab Info")
             .refreshable {
@@ -64,7 +66,13 @@ struct StudentLabStatusView: View {
                 labViewModel.fetchLabStatuses()
                 
             }
+            
         }
+        Text("Made by Tadiwanashe Songore For TUT FoICT")
+            .font(.footnote)
+            .foregroundColor(.gray)
+            .padding(.top, 30)
+            .padding(.bottom, 10)
     }
 }
 
