@@ -63,8 +63,124 @@ class LabViewModel: ObservableObject {
             }
         }
     }
+    
+    // MARK: - Open Lab Session
+    func openLabSession(labName: String, note: String = "") {
+        print("openLabSession called")
+        let db = Firestore.firestore()
+        guard let currentUser = Auth.auth().currentUser else {
+            print("No logged-in user")
+            return
+        }
+
+        // Get name from Firestore instead of relying on displayName
+        db.collection("users").document(currentUser.uid).getDocument { doc, error in
+            let userName = (doc?.data()?["name"] as? String) ?? currentUser.displayName ?? "Unknown"
+            let userId = currentUser.uid
+            
+            let sessionData: [String: Any] = [
+                "labName": labName,
+                "openedById": userId,
+                "openedByName": userName,
+                "openedAt": FieldValue.serverTimestamp(),
+                "note": note,
+                "closedAt": NSNull(),       // 🔹 So we can query for it later
+                "closedById": NSNull(),
+                "closedByName": NSNull()
+            ]
+            db.collection("labSessions").addDocument(data: sessionData) { error in
+                if let error = error {
+                    print("Error opening lab session: \(error.localizedDescription)")
+                } else {
+                    print("Lab session opened successfully")
+                }
+            }
+        }
+    }
+
+    // MARK: - Close Lab Session
+    func closeLabSession(labName: String, note: String = "") {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("No logged-in user")
+            return
+        }
+        
+        db.collection("users").document(currentUser.uid).getDocument { doc, error in
+            let userName = (doc?.data()?["name"] as? String) ?? currentUser.displayName ?? "Unknown"
+            let userId = currentUser.uid
+            
+            // Find the latest session where closedAt is null
+            Firestore.firestore()
+                .collection("labSessions")
+                .whereField("labName", isEqualTo: labName)
+                .whereField("closedAt", isEqualTo: NSNull()) // must exist as null from creation
+                .order(by: "openedAt", descending: true)
+                .limit(to: 1)
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        print("Error fetching open lab session: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    guard let doc = snapshot?.documents.first else {
+                        print("No open lab session found to close")
+                        return
+                    }
+                    
+                    doc.reference.updateData([
+                        "closedAt": FieldValue.serverTimestamp(),
+                        "closedById": userId,
+                        "closedByName": userName,
+                        "note": note
+                    ]) { error in
+                        if let error = error {
+                            print("Error closing lab session: \(error.localizedDescription)")
+                        } else {
+                            print("Lab session closed successfully")
+                        }
+                    }
+                }
+        }
+    }
 
 
+        // MARK: - Fetch current open sessions (for display)
+        func fetchOpenSessions(completion: @escaping ([LabSession]) -> Void) {
+            db.collection("labSessions")
+                .whereField("closedAt", isEqualTo: NSNull()) // sessions with no close timestamp = open sessions
+                .getDocuments { snapshot, error in
+                    if let error = error {
+                        print("Error fetching open sessions: \(error.localizedDescription)")
+                        completion([])
+                        return
+                    }
+
+                    let sessions = snapshot?.documents.compactMap { doc -> LabSession? in
+                        let data = doc.data()
+                        guard
+                            let labName = data["labName"] as? String,
+                            let openedById = data["openedById"] as? String,
+                            let openedByName = data["openedByName"] as? String,
+                            let openedAtTimestamp = data["openedAt"] as? Timestamp else {
+                            return nil
+                        }
+
+                        return LabSession(
+                            id: doc.documentID,
+                            labName: labName,
+                            openedById: openedById,
+                            openedByName: openedByName,
+                            openedAt: openedAtTimestamp.dateValue(),
+                            closedById: nil,
+                            closedByName: nil,
+                            closedAt: nil,
+                            note: data["note"] as? String ?? ""
+                        )
+                    } ?? []
+
+                    completion(sessions)
+                }
+        }
     
     // Fetch all tutors with role "tutor"
     func fetchTutors() {
@@ -194,6 +310,320 @@ class LabViewModel: ObservableObject {
         }
     }
     
+    func fetchWeeklyLabSessions(startDate: Date, endDate: Date, completion: @escaping ([LabSession]) -> Void) {
+        let db = Firestore.firestore()
+
+        db.collection("labSessions")
+            .whereField("openedAt", isGreaterThanOrEqualTo: startDate)
+            .whereField("openedAt", isLessThanOrEqualTo: endDate)
+            .order(by: "openedAt", descending: false)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching lab sessions: \(error)")
+                    completion([])
+                    return
+                }
+
+                let sessions: [LabSession] = snapshot?.documents.compactMap { doc in
+                    let data = doc.data()
+                    guard
+                        let labName = data["labName"] as? String,
+                        let openedById = data["openedById"] as? String,
+                        let openedByName = data["openedByName"] as? String,
+                        let openedAtTimestamp = data["openedAt"] as? Timestamp
+                    else {
+                        return nil
+                    }
+
+                    let closedAtTimestamp = data["closedAt"] as? Timestamp
+                    let closedAt = closedAtTimestamp?.dateValue()
+                    let closedById = data["closedById"] as? String
+                    let closedByName = data["closedByName"] as? String
+                    let note = data["note"] as? String ?? ""
+
+                    return LabSession(
+                        id: doc.documentID,
+                        labName: labName,
+                        openedById: openedById,
+                        openedByName: openedByName,
+                        openedAt: openedAtTimestamp.dateValue(),
+                        closedById: closedById,
+                        closedByName: closedByName,
+                        closedAt: closedAt,
+                        note: note
+                    )
+                } ?? []
+
+                completion(sessions)
+            }
+    }
+
+    func generateWeeklyLabReport(sessions: [LabSession], weekRange: String) -> URL? {
+        let pdfMetaData = [
+            kCGPDFContextCreator: "TUT Labs System",
+            kCGPDFContextTitle: "Weekly Lab Activity Report"
+        ]
+        let format = UIGraphicsPDFRendererFormat()
+        format.documentInfo = pdfMetaData as [String: Any]
+        
+        let pageWidth = 8.5 * 72.0
+        let pageHeight = 11 * 72.0
+        let margin: CGFloat = 72
+        let contentWidth = pageWidth - margin * 2
+        
+        let renderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight), format: format)
+        
+        let fileName = "Lab_Activity_\(weekRange).pdf"
+        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+        
+        func drawFooter(in context: UIGraphicsPDFRendererContext) {
+            let footerText = "Generated on \(Date().formatted(date: .long, time: .shortened))"
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.italicSystemFont(ofSize: 10),
+                .foregroundColor: UIColor.gray
+            ]
+            
+            let textSize = footerText.size(withAttributes: attributes)
+            let textRect = CGRect(x: (pageWidth - textSize.width) / 2,
+                                  y: pageHeight - 40,
+                                  width: textSize.width,
+                                  height: textSize.height)
+            
+            footerText.draw(in: textRect, withAttributes: attributes)
+        }
+        
+        do {
+            try renderer.writePDF(to: fileURL) { context in
+                context.beginPage()
+                
+                // Draw title (add logo if desired here)
+                let title = "FoICT Weekly Lab Activity Report (\(weekRange))"
+                let titleAttributes: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.boldSystemFont(ofSize: 18)
+                ]
+                let titleSize = title.size(withAttributes: titleAttributes)
+                let titlePoint = CGPoint(x: margin, y: 60)
+                title.draw(at: titlePoint, withAttributes: titleAttributes)
+                
+                var yPosition = 110.0
+                
+                let paragraphStyle = NSMutableParagraphStyle()
+                paragraphStyle.lineBreakMode = .byWordWrapping
+                paragraphStyle.alignment = .left
+                
+                let attributes: [NSAttributedString.Key: Any] = [
+                    .font: UIFont.systemFont(ofSize: 12),
+                    .paragraphStyle: paragraphStyle
+                ]
+                
+                for session in sessions {
+                    let openedStr = "Opened: \(session.openedAt.formatted(date: .abbreviated, time: .shortened)) by \(session.openedByName)"
+                    
+                    var closedStr = "Closed: N/A"
+                    if let closedAt = session.closedAt, let closedByName = session.closedByName {
+                        closedStr = "Closed: \(closedAt.formatted(date: .abbreviated, time: .shortened)) by \(closedByName)"
+                    }
+                    
+                    let noteStr = session.note.isEmpty ? "" : "Note: \(session.note)"
+                    
+                    let entry = """
+                    Lab: \(session.labName)
+                    \(openedStr)
+                    \(closedStr)
+                    \(noteStr)
+                    
+                    """
+                    
+                    let attributedText = NSAttributedString(string: entry, attributes: attributes)
+                    
+                    let textRect = CGRect(x: margin, y: yPosition, width: contentWidth, height: CGFloat.greatestFiniteMagnitude)
+                    let textHeight = attributedText.boundingRect(with: CGSize(width: textRect.width, height: CGFloat.greatestFiniteMagnitude),
+                                                                 options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil).height
+                    
+                    // Check for page break and draw footer before new page
+                    if yPosition + textHeight > pageHeight - margin {
+                        drawFooter(in: context)
+                        context.beginPage()
+                        yPosition = margin
+                    }
+                    
+                    attributedText.draw(with: CGRect(x: margin, y: yPosition, width: contentWidth, height: textHeight),
+                                        options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+                    
+                    yPosition += textHeight + 12
+                }
+                
+                // Draw footer on the last page
+                drawFooter(in: context)
+            }
+            
+            return fileURL
+        } catch {
+            print("Could not create PDF: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+
+
+    
+    func fetchTutorWeeklyShifts(tutorId: String, completion: @escaping ([LabShift]) -> Void) {
+        let db = Firestore.firestore()
+        // These can be used for filtering if you have proper date fields
+        let startOfWeek = Calendar.current.date(from: Calendar.current.dateComponents([.yearForWeekOfYear, .weekOfYear], from: Date()))!
+        let endOfWeek = Calendar.current.date(byAdding: .day, value: 6, to: startOfWeek)!
+
+        db.collection("labShifts")
+            .whereField("tutorId", isEqualTo: tutorId)
+            .getDocuments { snapshot, error in
+                if let error = error {
+                    print("Error fetching shifts: \(error.localizedDescription)")
+                    completion([])
+                    return
+                }
+
+                var shifts: [LabShift] = []
+                snapshot?.documents.forEach { doc in
+                    let data = doc.data()
+                    if let day = data["day"] as? String,
+                       let labName = data["labName"] as? String,
+                       let time = data["time"] as? String,
+                       let tutorId = data["tutorId"] as? String {
+                        // Optional: filter by week range here if you have a Date field
+                        
+                        shifts.append(LabShift(tutorId: tutorId, day: day, time: time, labName: labName))
+                    }
+                }
+
+                completion(shifts)
+            }
+    }
+
+    func generateTutorWeeklySchedulePDF(weekRange: String, shifts: [LabShift]) -> URL? {
+        guard let currentUser = Auth.auth().currentUser else {
+            print("No logged-in user")
+            return nil
+        }
+        
+        let tutorName = currentUser.displayName ?? "Tutor"
+        let pdfMetaData = [
+            kCGPDFContextCreator: "TUT Labs System",
+            kCGPDFContextTitle: "\(tutorName) - Weekly Schedule"
+        ]
+        let format = UIGraphicsPDFRendererFormat()
+        format.documentInfo = pdfMetaData as [String: Any]
+        
+        let pageWidth = 8.5 * 72.0
+        let pageHeight = 11 * 72.0
+        let margin: CGFloat = 50
+        let contentWidth = pageWidth - 2 * margin
+        
+        let renderer = UIGraphicsPDFRenderer(bounds: CGRect(x: 0, y: 0, width: pageWidth, height: pageHeight), format: format)
+        
+        let safeTutorName = tutorName.replacingOccurrences(of: " ", with: "_")
+        let safeFileName = "\(safeTutorName)_Schedule_\(weekRange)".replacingOccurrences(of: " ", with: "_")
+        let fileName = "\(safeFileName).pdf"
+        let fileURL = FileManager.default.temporaryDirectory.appendingPathComponent(fileName)
+        
+        do {
+            try renderer.writePDF(to: fileURL) { context in
+                func drawText(_ text: String, at point: CGPoint, font: UIFont, color: UIColor = .black, maxWidth: CGFloat? = nil) -> CGFloat {
+                    let paragraphStyle = NSMutableParagraphStyle()
+                    paragraphStyle.lineBreakMode = .byWordWrapping
+                    paragraphStyle.alignment = .left
+                    
+                    var attributes: [NSAttributedString.Key: Any] = [
+                        .font: font,
+                        .foregroundColor: color,
+                        .paragraphStyle: paragraphStyle
+                    ]
+                    
+                    let attributedText = NSAttributedString(string: text, attributes: attributes)
+                    
+                    let drawRect = CGRect(x: point.x, y: point.y, width: maxWidth ?? contentWidth, height: CGFloat.greatestFiniteMagnitude)
+                    
+                    let textRect = attributedText.boundingRect(with: CGSize(width: drawRect.width, height: CGFloat.greatestFiniteMagnitude),
+                                                               options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+                    
+                    attributedText.draw(with: drawRect, options: [.usesLineFragmentOrigin, .usesFontLeading], context: nil)
+                    
+                    return ceil(textRect.height)
+                }
+                
+                context.beginPage()
+                
+                // Draw Title Centered
+                let title = "FoICT \(tutorName) Weekly Lab Schedule"
+                let titleFont = UIFont.boldSystemFont(ofSize: 20)
+                let titleSize = title.size(withAttributes: [.font: titleFont])
+                let titlePoint = CGPoint(x: (pageWidth - titleSize.width) / 2, y: margin)
+                title.draw(at: titlePoint, withAttributes: [.font: titleFont])
+                
+                // Week Range below title
+                let weekFont = UIFont.systemFont(ofSize: 14)
+                let weekText = "Week: \(weekRange)"
+                let weekSize = weekText.size(withAttributes: [.font: weekFont])
+                let weekPoint = CGPoint(x: (pageWidth - weekSize.width) / 2, y: titlePoint.y + titleSize.height )
+                weekText.draw(at: weekPoint, withAttributes: [.font: weekFont])
+                
+                var yPosition = weekPoint.y + weekSize.height + 20
+                
+                // Draw table headers
+                let headerFont = UIFont.boldSystemFont(ofSize: 14)
+                let headers = ["Day", "Lab", "Time"]
+                let columnWidths: [CGFloat] = [contentWidth * 0.25, contentWidth * 0.5, contentWidth * 0.25]
+                
+                var xPosition = margin
+                for (index, header) in headers.enumerated() {
+                    header.draw(at: CGPoint(x: xPosition, y: yPosition), withAttributes: [.font: headerFont])
+                    xPosition += columnWidths[index]
+                }
+                yPosition += 25
+                
+                // Draw a line below headers
+                context.cgContext.setLineWidth(1.0)
+                context.cgContext.move(to: CGPoint(x: margin, y: yPosition - 5))
+                context.cgContext.addLine(to: CGPoint(x: pageWidth - margin, y: yPosition - 5))
+                context.cgContext.strokePath()
+                
+                // Draw shifts rows
+                let rowFont = UIFont.systemFont(ofSize: 12)
+                
+                for shift in shifts {
+                    xPosition = margin
+                    let dayHeight = drawText(shift.day, at: CGPoint(x: xPosition, y: yPosition), font: rowFont, maxWidth: columnWidths[0])
+                    xPosition += columnWidths[0]
+                    let labHeight = drawText(shift.labName, at: CGPoint(x: xPosition, y: yPosition), font: rowFont, maxWidth: columnWidths[1])
+                    xPosition += columnWidths[1]
+                    let timeHeight = drawText(shift.time, at: CGPoint(x: xPosition, y: yPosition), font: rowFont, maxWidth: columnWidths[2])
+                    
+                    let maxHeight = max(dayHeight, labHeight, timeHeight)
+                    yPosition += maxHeight + 10
+                    
+                    if yPosition > pageHeight - margin - 40 {
+                        context.beginPage()
+                        yPosition = margin
+                    }
+                }
+                
+                // Footer with generation date and time centered at bottom
+                let footer = "Generated: \(Date().formatted(date: .abbreviated, time: .shortened))"
+                let footerFont = UIFont.systemFont(ofSize: 10)
+                let footerSize = footer.size(withAttributes: [.font: footerFont])
+                let footerPoint = CGPoint(x: (pageWidth - footerSize.width) / 2, y: pageHeight - margin)
+                footer.draw(at: footerPoint, withAttributes: [.font: footerFont, .foregroundColor: UIColor.gray])
+            }
+            
+            return fileURL
+        } catch {
+            print("Could not create PDF: \(error.localizedDescription)")
+            return nil
+        }
+    }
+
+
+
+
     // Fetch all lab shifts
     func fetchShifts() {
         db.collection("labShifts").getDocuments { snapshot, error in

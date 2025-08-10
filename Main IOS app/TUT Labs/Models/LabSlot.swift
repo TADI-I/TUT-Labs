@@ -25,3 +25,16 @@ struct LabShift: Identifiable {
     var labName: String
 }
 
+
+struct LabSession: Identifiable {
+    let id: String
+    let labName: String
+    let openedById: String
+    let openedByName: String
+    let openedAt: Date
+    let closedById: String?
+    let closedByName: String?
+    let closedAt: Date?
+    let note: String
+}
+

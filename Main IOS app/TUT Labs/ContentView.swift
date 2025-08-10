@@ -15,7 +15,7 @@ struct ContentView: View {
         NavigationView {
             VStack {
                 // Public access button
-                Button("🖥️ View Lab Info Without Login") {
+                Button("🖥️ View Available Labs") {
                     showStudentView = true
                 }
                 .padding()

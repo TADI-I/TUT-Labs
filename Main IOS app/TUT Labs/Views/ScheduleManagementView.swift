@@ -12,12 +12,15 @@ struct ScheduleManagementView: View {
     
     @State private var selectedTutorId: String? = nil
     @State private var selectedDay = "Monday"
-    @State private var selectedTime = "09:00 - 11:00"
+    @State private var selectedTime = "16:00 - 19:00"
     @State private var selectedLab = "Lab 10 - 138"
     @State private var showError = false
+    @State private var showAddSuccess = false
+    @State private var showDeleteConfirm = false
+    @State private var shiftToDelete: LabShift?
     
     let days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-    let times = ["09:00 - 11:00", "11:00 - 13:00", "14:00 - 16:00"]
+    let times = ["16:00 - 19:00", "19:00 - 22:00", "18:00 - 20:00", "20:00 - 22:00"]
     let labs = ["Lab 10 - 138", "Lab 10 - G10", "Lab 10 - G06"]
     
     var body: some View {
@@ -56,6 +59,8 @@ struct ScheduleManagementView: View {
                     guard let tutorId = selectedTutorId else { return }
                     if !viewModel.assignShift(tutorId: tutorId, day: selectedDay, time: selectedTime, labName: selectedLab) {
                         showError = true
+                    } else {
+                        showAddSuccess = true
                     }
                 }
                 .disabled(selectedTutorId == nil)
@@ -74,23 +79,84 @@ struct ScheduleManagementView: View {
                                 }
                                 Spacer()
                                 Button(role: .destructive) {
-                                    viewModel.deleteShift(shift: shift)
+                                    shiftToDelete = shift
+                                    showDeleteConfirm = true
                                 } label: {
                                     Image(systemName: "trash")
                                 }
-                                .buttonStyle(BorderlessButtonStyle()) // Allows button inside List row
+                                .buttonStyle(BorderlessButtonStyle())
                             }
                         }
                     }
                 }
             }
-
+            
+  
         }
+        Button("Download Weekly Lab Report") {
+            let calendar = Calendar.current
+            let today = Date()
+            guard
+                let startOfWeek = calendar.date(from: calendar.dateComponents([.yearForWeekOfYear, .weekOfYear], from: today)),
+                let endOfWeek = calendar.date(byAdding: .day, value: 6, to: startOfWeek)
+            else {
+                print("Error calculating week range")
+                return
+            }
+
+            viewModel.fetchWeeklyLabSessions(startDate: startOfWeek, endDate: endOfWeek) { sessions in
+                guard let pdfURL = viewModel.generateWeeklyLabReport(
+                    sessions: sessions,
+                    weekRange: "\(startOfWeek.formatted(date: .abbreviated, time: .omitted)) - \(endOfWeek.formatted(date: .abbreviated, time: .omitted))"
+                ) else {
+                    print("Failed to generate PDF")
+                    return
+                }
+
+                DispatchQueue.main.async {
+                    if let rootVC = UIApplication.shared.connectedScenes
+                        .compactMap({ $0 as? UIWindowScene })
+                        .flatMap({ $0.windows })
+                        .first(where: { $0.isKeyWindow })?
+                        .rootViewController {
+                        
+                        let activityVC = UIActivityViewController(activityItems: [pdfURL], applicationActivities: nil)
+                        rootVC.present(activityVC, animated: true)
+                    } else {
+                        print("Unable to find root view controller")
+                    }
+                }
+            }
+        }
+        .buttonStyle(.borderedProminent)
         .navigationTitle("Schedule Management")
-        .alert("Error", isPresented: $showError, actions: {
-            Button("OK", role: .cancel) { }
-        }, message: {
-            Text("This lab is already assigned for the selected day and time.")
-        })
+        // Alert for duplicate error
+        .alert("Shift Already Exists", isPresented: $showError) {
+            Button("OK", role: .cancel) { showError = false }
+        } message: {
+            Text("This shift has already been assigned. Please select a different day, time, or lab.")
+        }
+        
+        // Alert for successful addition
+        .alert("Shift Assigned", isPresented: $showAddSuccess) {
+            Button("OK", role: .cancel) { showAddSuccess = false }
+        } message: {
+            Text("The shift has been successfully assigned.")
+        }
+        
+        // Confirmation alert before deleting
+        .alert("Delete Shift?", isPresented: $showDeleteConfirm) {
+            Button("Delete", role: .destructive) {
+                if let shift = shiftToDelete {
+                    viewModel.deleteShift(shift: shift)
+                }
+                shiftToDelete = nil
+            }
+            Button("Cancel", role: .cancel) {
+                shiftToDelete = nil
+            }
+        } message: {
+            Text("Are you sure you want to delete this shift?")
+        }
     }
 }

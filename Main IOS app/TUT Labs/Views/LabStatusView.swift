@@ -19,6 +19,7 @@ struct LabStatusView: View {
     @State private var showConfirmation = false
     @State private var currentUserId = Auth.auth().currentUser?.uid
     @State private var labStatuses: [String: LabStatus] = [:]
+    @ObservedObject var viewModel = LabViewModel()
 
     let labs = ["Lab 10 - 138", "Lab 10 - G10", "Lab 10 - G06"]
 
@@ -52,7 +53,7 @@ struct LabStatusView: View {
                 }
             }
         }
-        .navigationTitle(isAdmin ? "Admin Announcements" : "Update Lab Status")
+        .navigationTitle(isAdmin ? "Update Lab Status" : "Update Lab Status")
         .onAppear {
             fetchStatus(for: selectedLab)
         }
@@ -124,6 +125,12 @@ struct LabStatusView: View {
                 fetchStatus(for: selectedLab)
             }
         }
+        
+        if labOpen {
+            viewModel.openLabSession(labName: selectedLab, note: note)
+                   } else {
+                       viewModel.closeLabSession(labName: selectedLab)
+                   }
     }
     
 }

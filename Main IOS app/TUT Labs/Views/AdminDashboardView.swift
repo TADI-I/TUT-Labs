@@ -16,7 +16,7 @@ struct AdminDashboardView: View {
                 NavigationLink("Manage Tutors", destination: ManageTutorsView(viewModel: LabViewModel()))
                 //NavigationLink("Assign Schedule", destination: ScheduleView())
                 NavigationLink("Manage Schedule", destination: ScheduleManagementView(viewModel: LabViewModel()))
-                NavigationLink("Send Announcement", destination: LabStatusView(isAdmin: true))
+                NavigationLink("Open/Close Labs", destination: LabStatusView(isAdmin: true))
             }
             .navigationTitle("Admin Dashboard")
             .toolbar {
