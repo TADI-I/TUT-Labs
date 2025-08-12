@@ -9,11 +9,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tadiwanashe.tutictlabs.ViewModels.AuthViewModel
-import com.tadiwanashe.tutictlabs.ViewModels.LabViewModel
+
 import com.tadiwanashe.tutictlabs.Views.AdminDashboardView
+import com.tadiwanashe.tutictlabs.Views.LabStatusView
 import com.tadiwanashe.tutictlabs.Views.LoginScreen
+import com.tadiwanashe.tutictlabs.Views.ManageTutorView
+import com.tadiwanashe.tutictlabs.Views.ScheduleManagementView
+import com.tadiwanashe.tutictlabs.Views.ScheduleView
+import com.tadiwanashe.tutictlabs.Views.StudentLabStatusView
 import com.tadiwanashe.tutictlabs.Views.TutorDashboardView
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -54,8 +61,8 @@ fun ContentView(
                 when {
                     isLoggedIn -> {
                         when (userRole) {
-                            "admin" -> AdminDashboardView(authViewModel = authViewModel,navController = navController)
-                            else -> TutorDashboardView(authViewModel = authViewModel ,navController = navController)
+                            "admin" -> AdminDashboardView(authViewModel = authViewModel, navController = navController)
+                            else -> TutorDashboardView(authViewModel = authViewModel, navController = navController)
                         }
                     }
                     else -> LoginScreen(
@@ -75,12 +82,35 @@ fun ContentView(
         }
     }
 
+    // Navigation setup
+    NavHost(
+        navController = navController,
+        startDestination = "main",
+        modifier = Modifier.fillMaxSize()
+    ) {
+        composable("main") { /* Empty if you're handling content in Scaffold */ }
+        composable("ScheduleView") {
+            ScheduleView(navController = navController)
+        }
+        composable("LabStatusView") {
+            LabStatusView(userRole=="admin",navController = navController)
+        }
+        composable("ManageTutorView") {
+            ManageTutorView(navController = navController)
+        }
+        composable("ScheduleManagementView") {
+            ScheduleManagementView(navController = navController)
+        }
+
+        // Add other destinations here
+    }
+
     // Student view sheet
     if (showStudentView) {
         ModalBottomSheet(
             onDismissRequest = { showStudentView = false }
         ) {
-            // StudentLabStatusView()
+            StudentLabStatusView()
         }
     }
 }

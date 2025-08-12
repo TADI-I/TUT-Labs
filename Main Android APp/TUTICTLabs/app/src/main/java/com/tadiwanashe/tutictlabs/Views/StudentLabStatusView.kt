@@ -7,12 +7,16 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.tadiwanashe.tutictlabs.Models.LabShift
+import com.tadiwanashe.tutictlabs.Models.LabStatus
+import com.tadiwanashe.tutictlabs.Models.User
 import com.tadiwanashe.tutictlabs.ViewModels.LabViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -133,7 +137,7 @@ private fun LabStatusCard(status: LabStatus) {
 }
 
 @Composable
-private fun LabShiftCard(shift: LabShift, tutor: Tutor?) {
+private fun LabShiftCard(shift: LabShift, tutor: User?) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         colors = CardDefaults.cardColors(

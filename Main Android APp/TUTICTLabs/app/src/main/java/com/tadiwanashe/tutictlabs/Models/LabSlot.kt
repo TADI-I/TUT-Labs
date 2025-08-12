@@ -4,7 +4,7 @@ import java.util.*
 
 // Equivalent to Swift's `var` for mutable properties
 data class LabStatus(
-    var id: UUID = UUID.randomUUID(),
+    var id: String = UUID.randomUUID().toString(),
     var labName: String = "",
     var isOpen: Boolean = false,
     var note: String = "",
@@ -14,7 +14,7 @@ data class LabStatus(
 )
 
 data class LabShift(
-    var id: UUID = UUID.randomUUID(),
+    var id: String = UUID.randomUUID().toString(),
     var tutorId: String = "",
     var day: String = "",
     var time: String = "",

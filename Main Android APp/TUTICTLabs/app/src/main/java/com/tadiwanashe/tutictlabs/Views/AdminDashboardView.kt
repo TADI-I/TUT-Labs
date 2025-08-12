@@ -51,19 +51,19 @@ fun AdminDashboardView(
             item {
                 NavigationCard1(
                     title = "Manage Tutors",
-                    onClick = { navController.navigate("manageTutors") }
+                    onClick = { navController.navigate("ManageTutorView") }
                 )
             }
             item {
                 NavigationCard1(
                     title = "Manage Schedule",
-                    onClick = { navController.navigate("manageSchedule") }
+                    onClick = { navController.navigate("ScheduleManagementView") }
                 )
             }
             item {
                 NavigationCard1(
                     title = "Open/Close Labs",
-                    onClick = { navController.navigate("labStatus") }
+                    onClick = { navController.navigate("LabStatusView") }
                 )
             }
         }

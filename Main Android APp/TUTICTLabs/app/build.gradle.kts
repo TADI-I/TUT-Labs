@@ -92,6 +92,9 @@ dependencies {
     implementation(libs.firebase.crashlytics.buildtools)
     implementation(libs.androidx.foundation)
     implementation(libs.ads.mobile.sdk)
+    implementation(libs.ui)
+    implementation(libs.androidx.runtime)
+    implementation(libs.androidx.foundation.layout)
 
     // Testing
     testImplementation(libs.junit)

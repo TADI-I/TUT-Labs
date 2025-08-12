@@ -47,13 +47,13 @@ fun TutorDashboardView(
             item {
                 NavigationCard(
                     title = "My Schedule",
-                    onClick = { navController.navigate("tutorSchedule") }
+                    onClick = { navController.navigate("ScheduleView") }
                 )
             }
             item {
                 NavigationCard(
                     title = "Update Lab Status",
-                    onClick = { navController.navigate("labStatus") }
+                    onClick = { navController.navigate("LabStatusView") }
                 )
             }
         }
