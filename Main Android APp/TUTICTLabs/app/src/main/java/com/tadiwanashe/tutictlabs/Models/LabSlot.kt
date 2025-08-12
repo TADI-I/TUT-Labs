@@ -20,3 +20,15 @@ data class LabShift(
     var time: String = "",
     var labName: String = ""
 )
+
+data class LabSession(
+    val id: String,
+    val labName: String,
+    val openedById: String,
+    val openedByName: String,
+    val openedAt: Date,
+    val closedById: String?,
+    val closedByName: String?,
+    val closedAt: Date?,
+    val note: String
+)

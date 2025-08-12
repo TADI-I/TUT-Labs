@@ -73,7 +73,8 @@ dependencies {
     // implementation(libs.androidx.lifecycle.viewmodel.compose)
     // implementation(libs.androidx.compose.runtime.livedata)
 
-
+    implementation("com.google.accompanist:accompanist-swiperefresh:0.27.0")
+// Check for latest version
     // Firebase (ensure these are in your libs.versions.toml if you want to use aliases)
     implementation(platform("com.google.firebase:firebase-bom:32.5.0")) // Consider adding this BOM to toml
     implementation("com.google.firebase:firebase-auth-ktx")
@@ -85,6 +86,12 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
     implementation(libs.androidx.navigation.runtime.ktx)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.ui.text)
+    implementation(libs.ui.graphics)
+    implementation(libs.androidx.compose.material)
+    implementation(libs.firebase.crashlytics.buildtools)
+    implementation(libs.androidx.foundation)
+    implementation(libs.ads.mobile.sdk)
 
     // Testing
     testImplementation(libs.junit)

@@ -1,59 +1,69 @@
 package com.tadiwanashe.tutictlabs.Views
 
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import com.tadiwanashe.tutictlabs.ViewModels.AuthViewModel
+import com.tadiwanashe.tutictlabs.ViewModels.LabViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AdminDashboardView(
     authViewModel: AuthViewModel,
-    navController: NavController
+    //labViewModel: LabViewModel,
+    navController: NavHostController
 ) {
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = { Text("Admin Dashboard") },
                 actions = {
                     IconButton(
                         onClick = { authViewModel.logout() },
-                        colors = IconButtonDefaults.iconButtonColors(contentColor = MaterialTheme.colorScheme.error)
+                        modifier = Modifier.padding(end = 8.dp)
                     ) {
-                        Text("Logout")
+                        Icon(
+                            imageVector = Icons.Filled.ExitToApp,
+                            contentDescription = "Logout",
+                            tint = Color.Red
+                        )
                     }
                 }
             )
         }
-    ) { padding ->
+    ) { paddingValues ->
         LazyColumn(
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding(paddingValues)
+                .padding(16.dp),
+            verticalArrangement = Arrangement.spacedBy(8.dp)
         ) {
             item {
-                NavigationCard(
+                NavigationCard1(
                     title = "Manage Tutors",
                     onClick = { navController.navigate("manageTutors") }
                 )
             }
             item {
-                NavigationCard(
+                NavigationCard1(
                     title = "Manage Schedule",
-                    onClick = { navController.navigate("scheduleManagement") }
+                    onClick = { navController.navigate("manageSchedule") }
                 )
             }
             item {
-                NavigationCard(
-                    title = "Send Announcement",
-                    onClick = { navController.navigate("labStatus/admin") }
+                NavigationCard1(
+                    title = "Open/Close Labs",
+                    onClick = { navController.navigate("labStatus") }
                 )
             }
         }
@@ -61,10 +71,18 @@ fun AdminDashboardView(
 }
 
 @Composable
-fun NavigationCard(title: String, onClick: () -> Unit) {
+fun NavigationCard1(
+    title: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
     Card(
         onClick = onClick,
-        modifier = Modifier.padding(8.dp)
+        modifier = modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = MaterialTheme.colorScheme.surfaceVariant,
+            contentColor = MaterialTheme.colorScheme.onSurfaceVariant
+        )
     ) {
         Text(
             text = title,

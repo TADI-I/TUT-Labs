@@ -7,7 +7,6 @@
 
 import SwiftUI
 
-import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var authViewModel: AuthViewModel
