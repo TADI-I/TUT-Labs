@@ -1,0 +1,625 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		281C3A722E3E3242004B1ED0 /* FirebaseAI in Frameworks */ = {isa = PBXBuildFile; productRef = 281C3A712E3E3242004B1ED0 /* FirebaseAI */; };
+		281C3A742E3E3242004B1ED0 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 281C3A732E3E3242004B1ED0 /* FirebaseAnalytics */; };
+		281C3A762E3E3242004B1ED0 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 281C3A752E3E3242004B1ED0 /* FirebaseAuth */; };
+		281C3A782E3E343E004B1ED0 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 281C3A772E3E343E004B1ED0 /* FirebaseFirestore */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		281C3A2E2E3E28C0004B1ED0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 281C3A182E3E28BD004B1ED0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 281C3A1F2E3E28BD004B1ED0;
+			remoteInfo = "TUT Labs";
+		};
+		281C3A382E3E28C0004B1ED0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 281C3A182E3E28BD004B1ED0 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 281C3A1F2E3E28BD004B1ED0;
+			remoteInfo = "TUT Labs";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		281C3A202E3E28BD004B1ED0 /* TUT Labs.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TUT Labs.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		281C3A2D2E3E28C0004B1ED0 /* TUT LabsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TUT LabsTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		281C3A372E3E28C0004B1ED0 /* TUT LabsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "TUT LabsUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		281C3A222E3E28BD004B1ED0 /* TUT Labs */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "TUT Labs";
+			sourceTree = "<group>";
+		};
+		281C3A302E3E28C0004B1ED0 /* TUT LabsTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "TUT LabsTests";
+			sourceTree = "<group>";
+		};
+		281C3A3A2E3E28C0004B1ED0 /* TUT LabsUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = "TUT LabsUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		281C3A1D2E3E28BD004B1ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				281C3A742E3E3242004B1ED0 /* FirebaseAnalytics in Frameworks */,
+				281C3A782E3E343E004B1ED0 /* FirebaseFirestore in Frameworks */,
+				281C3A762E3E3242004B1ED0 /* FirebaseAuth in Frameworks */,
+				281C3A722E3E3242004B1ED0 /* FirebaseAI in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		281C3A2A2E3E28C0004B1ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		281C3A342E3E28C0004B1ED0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		281C3A172E3E28BD004B1ED0 = {
+			isa = PBXGroup;
+			children = (
+				281C3A222E3E28BD004B1ED0 /* TUT Labs */,
+				281C3A302E3E28C0004B1ED0 /* TUT LabsTests */,
+				281C3A3A2E3E28C0004B1ED0 /* TUT LabsUITests */,
+				281C3A212E3E28BD004B1ED0 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		281C3A212E3E28BD004B1ED0 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				281C3A202E3E28BD004B1ED0 /* TUT Labs.app */,
+				281C3A2D2E3E28C0004B1ED0 /* TUT LabsTests.xctest */,
+				281C3A372E3E28C0004B1ED0 /* TUT LabsUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		281C3A1F2E3E28BD004B1ED0 /* TUT Labs */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 281C3A412E3E28C0004B1ED0 /* Build configuration list for PBXNativeTarget "TUT Labs" */;
+			buildPhases = (
+				281C3A1C2E3E28BD004B1ED0 /* Sources */,
+				281C3A1D2E3E28BD004B1ED0 /* Frameworks */,
+				281C3A1E2E3E28BD004B1ED0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				281C3A222E3E28BD004B1ED0 /* TUT Labs */,
+			);
+			name = "TUT Labs";
+			packageProductDependencies = (
+				281C3A712E3E3242004B1ED0 /* FirebaseAI */,
+				281C3A732E3E3242004B1ED0 /* FirebaseAnalytics */,
+				281C3A752E3E3242004B1ED0 /* FirebaseAuth */,
+				281C3A772E3E343E004B1ED0 /* FirebaseFirestore */,
+			);
+			productName = "TUT Labs";
+			productReference = 281C3A202E3E28BD004B1ED0 /* TUT Labs.app */;
+			productType = "com.apple.product-type.application";
+		};
+		281C3A2C2E3E28C0004B1ED0 /* TUT LabsTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 281C3A442E3E28C0004B1ED0 /* Build configuration list for PBXNativeTarget "TUT LabsTests" */;
+			buildPhases = (
+				281C3A292E3E28C0004B1ED0 /* Sources */,
+				281C3A2A2E3E28C0004B1ED0 /* Frameworks */,
+				281C3A2B2E3E28C0004B1ED0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				281C3A2F2E3E28C0004B1ED0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				281C3A302E3E28C0004B1ED0 /* TUT LabsTests */,
+			);
+			name = "TUT LabsTests";
+			packageProductDependencies = (
+			);
+			productName = "TUT LabsTests";
+			productReference = 281C3A2D2E3E28C0004B1ED0 /* TUT LabsTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		281C3A362E3E28C0004B1ED0 /* TUT LabsUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 281C3A472E3E28C0004B1ED0 /* Build configuration list for PBXNativeTarget "TUT LabsUITests" */;
+			buildPhases = (
+				281C3A332E3E28C0004B1ED0 /* Sources */,
+				281C3A342E3E28C0004B1ED0 /* Frameworks */,
+				281C3A352E3E28C0004B1ED0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				281C3A392E3E28C0004B1ED0 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				281C3A3A2E3E28C0004B1ED0 /* TUT LabsUITests */,
+			);
+			name = "TUT LabsUITests";
+			packageProductDependencies = (
+			);
+			productName = "TUT LabsUITests";
+			productReference = 281C3A372E3E28C0004B1ED0 /* TUT LabsUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		281C3A182E3E28BD004B1ED0 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1640;
+				LastUpgradeCheck = 1640;
+				TargetAttributes = {
+					281C3A1F2E3E28BD004B1ED0 = {
+						CreatedOnToolsVersion = 16.4;
+					};
+					281C3A2C2E3E28C0004B1ED0 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 281C3A1F2E3E28BD004B1ED0;
+					};
+					281C3A362E3E28C0004B1ED0 = {
+						CreatedOnToolsVersion = 16.4;
+						TestTargetID = 281C3A1F2E3E28BD004B1ED0;
+					};
+				};
+			};
+			buildConfigurationList = 281C3A1B2E3E28BD004B1ED0 /* Build configuration list for PBXProject "TUT Labs" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 281C3A172E3E28BD004B1ED0;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				281C3A702E3E3061004B1ED0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 281C3A212E3E28BD004B1ED0 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				281C3A1F2E3E28BD004B1ED0 /* TUT Labs */,
+				281C3A2C2E3E28C0004B1ED0 /* TUT LabsTests */,
+				281C3A362E3E28C0004B1ED0 /* TUT LabsUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		281C3A1E2E3E28BD004B1ED0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		281C3A2B2E3E28C0004B1ED0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		281C3A352E3E28C0004B1ED0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		281C3A1C2E3E28BD004B1ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		281C3A292E3E28C0004B1ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		281C3A332E3E28C0004B1ED0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		281C3A2F2E3E28C0004B1ED0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 281C3A1F2E3E28BD004B1ED0 /* TUT Labs */;
+			targetProxy = 281C3A2E2E3E28C0004B1ED0 /* PBXContainerItemProxy */;
+		};
+		281C3A392E3E28C0004B1ED0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 281C3A1F2E3E28BD004B1ED0 /* TUT Labs */;
+			targetProxy = 281C3A382E3E28C0004B1ED0 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		281C3A3F2E3E28C0004B1ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = DG6B949934;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		281C3A402E3E28C0004B1ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = DG6B949934;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		281C3A422E3E28C0004B1ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DG6B949934;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "TUT ICT Labs";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Personal.TUT-Labs";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		281C3A432E3E28C0004B1ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DG6B949934;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_CFBundleDisplayName = "TUT ICT Labs";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.education";
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UIStatusBarStyle = "";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Personal.TUT-Labs";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		281C3A452E3E28C0004B1ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DG6B949934;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Personal.TUT-LabsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TUT Labs.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TUT Labs";
+			};
+			name = Debug;
+		};
+		281C3A462E3E28C0004B1ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DG6B949934;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Personal.TUT-LabsTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TUT Labs.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/TUT Labs";
+			};
+			name = Release;
+		};
+		281C3A482E3E28C0004B1ED0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DG6B949934;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Personal.TUT-LabsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "TUT Labs";
+			};
+			name = Debug;
+		};
+		281C3A492E3E28C0004B1ED0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = DG6B949934;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Personal.TUT-LabsUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "TUT Labs";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		281C3A1B2E3E28BD004B1ED0 /* Build configuration list for PBXProject "TUT Labs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				281C3A3F2E3E28C0004B1ED0 /* Debug */,
+				281C3A402E3E28C0004B1ED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		281C3A412E3E28C0004B1ED0 /* Build configuration list for PBXNativeTarget "TUT Labs" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				281C3A422E3E28C0004B1ED0 /* Debug */,
+				281C3A432E3E28C0004B1ED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		281C3A442E3E28C0004B1ED0 /* Build configuration list for PBXNativeTarget "TUT LabsTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				281C3A452E3E28C0004B1ED0 /* Debug */,
+				281C3A462E3E28C0004B1ED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		281C3A472E3E28C0004B1ED0 /* Build configuration list for PBXNativeTarget "TUT LabsUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				281C3A482E3E28C0004B1ED0 /* Debug */,
+				281C3A492E3E28C0004B1ED0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		281C3A702E3E3061004B1ED0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 12.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		281C3A712E3E3242004B1ED0 /* FirebaseAI */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 281C3A702E3E3061004B1ED0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAI;
+		};
+		281C3A732E3E3242004B1ED0 /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 281C3A702E3E3061004B1ED0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		281C3A752E3E3242004B1ED0 /* FirebaseAuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 281C3A702E3E3061004B1ED0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAuth;
+		};
+		281C3A772E3E343E004B1ED0 /* FirebaseFirestore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 281C3A702E3E3061004B1ED0 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestore;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 281C3A182E3E28BD004B1ED0 /* Project object */;
+}

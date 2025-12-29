@@ -38,7 +38,7 @@ fun LoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Login",
+            text = "TUT ICT Lab Login",
             style = MaterialTheme.typography.headlineMedium
         )
 

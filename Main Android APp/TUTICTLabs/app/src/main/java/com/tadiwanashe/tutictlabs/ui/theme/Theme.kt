@@ -9,53 +9,36 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
-)
-
+// Light theme
 private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
+    primary = TutBlueLight,
     onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+    secondary = TutYellowLight,
+    onSecondary = TutTextDark,
+    tertiary = TutRedLight,
+    background = TutGreyLight,
+    onBackground = TutTextDark,
+    surface = Color.White,
+    onSurface = TutTextDark
 )
 
-@Composable
-fun TUTICTLabsTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+// Dark theme
+private val DarkColorScheme = darkColorScheme(
+    primary = TutBlueDark,
+    onPrimary = TutTextLight,
+    secondary = TutYellowDark,
+    onSecondary = TutGreyDark,
+    tertiary = TutRedDark,
+    background = TutGreyDark,
+    onBackground = TutTextLight,
+    surface = Color(0xFF1E1E1E),
+    onSurface = TutTextLight
+)
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
 
 @Composable
 fun YourAppTheme(

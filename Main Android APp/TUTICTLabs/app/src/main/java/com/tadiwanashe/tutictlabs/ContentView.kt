@@ -2,6 +2,7 @@ package com.tadiwanashe.tutictlabs
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -55,7 +56,11 @@ fun ContentView(
                     Text("🖥️ View Available Labs")
                 }
 
-                Divider(modifier = Modifier.padding(vertical = 16.dp))
+                HorizontalDivider(
+                    modifier = Modifier.padding(vertical = 16.dp),
+                    thickness = DividerDefaults.Thickness,
+                    color = DividerDefaults.color
+                )
 
                 // Authenticated user routing
                 when {

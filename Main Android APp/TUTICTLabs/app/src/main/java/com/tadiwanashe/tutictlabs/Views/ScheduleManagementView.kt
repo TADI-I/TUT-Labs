@@ -2,7 +2,6 @@ package com.tadiwanashe.tutictlabs.Views
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Delete
@@ -19,6 +18,7 @@ import androidx.navigation.NavController
 import java.text.SimpleDateFormat
 import java.util.*
 import android.content.Intent
+import android.widget.Toast
 import com.tadiwanashe.tutictlabs.Models.LabShift
 import com.tadiwanashe.tutictlabs.ViewModels.LabViewModel
 
@@ -114,7 +114,7 @@ fun ScheduleManagementView(
                                             text = { Text(day) }, // Correct DropdownMenuItem syntax
                                             onClick = {
                                                 selectedDay = day
-                                                var expanded = false
+                                                //var expanded = false
                                             })
 
                                     }
@@ -141,7 +141,7 @@ fun ScheduleManagementView(
                                             text = { Text(time) }, // Correct DropdownMenuItem syntax
                                             onClick = {
                                                 selectedTime = (time)
-                                                var expanded = false
+                                             //   var expanded = false
                                             })
 
                                     }
@@ -168,7 +168,7 @@ fun ScheduleManagementView(
                                             text = { Text(lab) }, // Correct DropdownMenuItem syntax
                                             onClick = {
                                                 selectedLab = (lab)
-                                                var expanded = false
+                                                //var expanded = false
                                             })
                                     }
                                 }
@@ -241,7 +241,7 @@ fun ScheduleManagementView(
                                                 Icon(
                                                     imageVector = Icons.Default.Delete,
                                                     contentDescription = "Delete",
-                                                    tint = MaterialTheme.colorScheme.error
+                                                    tint = Color.Red
                                                 )
                                             }
                                         }
@@ -256,7 +256,7 @@ fun ScheduleManagementView(
                     Button(
                         onClick = {
                             val calendar = Calendar.getInstance()
-                            val today = calendar.time
+                            //val today = calendar.time
 
                             calendar.firstDayOfWeek = Calendar.MONDAY
                             calendar.set(Calendar.DAY_OF_WEEK, calendar.firstDayOfWeek)
@@ -286,6 +286,9 @@ fun ScheduleManagementView(
                                         Intent.createChooser(intent, "Share Weekly Lab Report")
                                     )
                                 }
+                                    ?: run {
+                                        Toast.makeText(context, "Failed to generate report", Toast.LENGTH_SHORT).show()
+                                    }
                             }
                         },
                         modifier = Modifier
